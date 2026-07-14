@@ -23,6 +23,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -33,7 +34,82 @@
             overflow-x: hidden; 
         }
 
-        /* HEADER COM A TEXTURA DE ROCHA ESCURA E VEIOS DOURADOS */
+        /* === ABA LATERAL ESCONDIDA === */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 290px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 2px solid var(--gold-primary);
+            z-index: 999;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 40px 20px;
+        }
+
+        .sidebar-trigger {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 100vh;
+            z-index: 998;
+        }
+
+        .sidebar-trigger:hover + .sidebar, .sidebar:hover {
+            left: 0;
+        }
+
+        .sidebar-badge {
+            position: absolute;
+            right: -33px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gold-primary);
+            color: #0d0d0d;
+            padding: 18px 8px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 4px 0 15px rgba(205, 163, 79, 0.2);
+        }
+
+        .sidebar h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--gold-primary);
+            margin-bottom: 30px;
+            font-size: 1.6rem;
+            border-bottom: 1px solid rgba(205, 163, 79, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: rgba(205, 163, 79, 0.12);
+            color: var(--gold-primary);
+            padding-left: 18px;
+        }
+
+        /* HEADER COM A TEXTURA DE ROCHA ESCURA */
         header {
             position: relative;
             min-height: 80vh;
@@ -44,11 +120,8 @@
             text-align: center;
             color: #fff;
             padding: 60px 20px;
-            
-            /* Gradiente suave combinado com a imagem correspondente */
-            background: linear-gradient(rgba(10, 10, 10, 0.45), rgba(5, 5, 5, 0.8), rgba(13, 13, 13, 1)), 
+            background: linear-gradient(rgba(10, 10, 10, 0.45), rgba(5, 5, 5, 0.8)), 
                         url('./imagem/parede.jpg') no-repeat center center/cover;
-            
             border-bottom: 2px solid var(--gold-primary);
             perspective: 1000px;
             box-shadow: inset 0 -50px 100px rgba(0,0,0,0.9);
@@ -490,6 +563,17 @@
 </head>
 <body>
 
+    <div class="sidebar-trigger"></div>
+    
+    <nav class="sidebar">
+        <div class="sidebar-badge">Menu ☰</div>
+        <h3>WR Imports</h3>
+        <a href="#"><i class="fa-solid fa-house"></i> Início</a>
+        <a href="#mostruario"><i class="fa-solid fa-bottle-dropper"></i> Ver Destaques</a>
+        <a href="https://instagram.com/wr___importss" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://wa.me/5511951001655?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20as%20fragrâncias%20do%20catálogo." target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Vendas</a>
+    </nav>
+
     <header>
         <div class="header-content">
             <div class="logo-container">
@@ -545,7 +629,7 @@
                     <img src="./imagem/kaue4.jpg" alt="Duha Al Wataniah">
                     <div class="slide-caption">
                         <h3>Duha - Al Wataniah</h3>
-                        <p>O mistério e o luxo das especiarias e notas misteriosas da alta perfumaria árabe.</p>
+                        <p>O mistério e o luxo das espionage e notas misteriosas da alta perfumaria árabe.</p>
                     </div>
                 </div>
 
@@ -569,7 +653,7 @@
                     <img src="./imagem/kaue7.avif" alt="Invictus Parfum">
                     <div class="slide-caption">
                         <h3>Invictus - Paco Rabanne</h3>
-                        <p>A essência da vitória em notas marinhas vibrantes e o calor do âmbar.</p>
+                        <p>A essence da vitória em notas marinhas vibrantes e o calor do âmbar.</p>
                     </div>
                 </div>
 
@@ -638,10 +722,10 @@
 
     <footer>
         <div class="social-medias">
-            <a href="https://instagram.com/wr__importss" target="_blank" class="social-link">
-                <i class="fab fa-instagram"></i> Instagram (@wr__importss)
+            <a href="https://instagram.com/wr___importss" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i> Instagram (@wr___importss)
             </a>
-            <a href="https://wa.me/seunumero" target="_blank" class="social-link">
+            <a href="https://wa.me/5511951001655?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20as%20fragrâncias%20do%20catálogo." target="_blank" class="social-link">
                 <i class="fab fa-whatsapp"></i> WhatsApp Vendas
             </a>
         </div>
@@ -696,5 +780,17 @@
 
         startAutoPlay();
     </script>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
 </body>
 </html>
