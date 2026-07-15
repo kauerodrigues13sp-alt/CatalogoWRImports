@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -34,56 +33,77 @@
             overflow-x: hidden; 
         }
 
-        /* === ABA LATERAL ESCONDIDA === */
+        /* === BOTÃO MENU HAMBURGUER (FIXO) === */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(205, 163, 79, 0.3);
+            color: var(--gold-primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 998;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-toggle:hover {
+            background: var(--gold-primary);
+            color: #0d0d0d;
+            border-color: var(--gold-primary);
+            box-shadow: 0 4px 25px rgba(205, 163, 79, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* === MENU LATERAL (SIDEBAR) === */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px;
+            left: -290px;
             width: 290px;
             height: 100vh;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-right: 2px solid var(--gold-primary);
-            z-index: 999;
+            z-index: 1001;
             transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             padding: 40px 20px;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.8);
         }
 
-        .sidebar-trigger {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 100vh;
-            z-index: 998;
-        }
-
-        .sidebar-trigger:hover + .sidebar, .sidebar:hover {
+        .sidebar.active {
             left: 0;
         }
 
-        .sidebar-badge {
+        .sidebar-close {
             position: absolute;
-            right: -33px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--gold-primary);
-            color: #0d0d0d;
-            padding: 18px 8px;
-            border-radius: 0 8px 8px 0;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.8rem;
             cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: bold;
-            writing-mode: vertical-rl;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 4px 0 15px rgba(205, 163, 79, 0.2);
+            transition: color 0.3s;
+        }
+
+        .sidebar-close:hover {
+            color: var(--gold-primary);
         }
 
         .sidebar h3 {
             font-family: 'Playfair Display', Georgia, serif;
             color: var(--gold-primary);
+            margin-top: 20px;
             margin-bottom: 30px;
             font-size: 1.6rem;
             border-bottom: 1px solid rgba(205, 163, 79, 0.2);
@@ -109,7 +129,7 @@
             padding-left: 18px;
         }
 
-        /* HEADER COM A TEXTURA DE ROCHA ESCURA */
+        /* === HEADER === */
         header {
             position: relative;
             min-height: 80vh;
@@ -260,7 +280,7 @@
 
         @keyframes pop-word { to { transform: rotateX(0); } }
         @keyframes show { to { opacity: 1; } }
-        
+
         @keyframes pump-squeeze {
             0%, 100% { transform: scale(1); }
             15% { transform: scale(0.85, 1) translateX(2px); }
@@ -295,7 +315,7 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             border-radius: 4px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             opacity: 0;
             animation: show 0.5s forwards 1.5s;
             box-shadow: 0 4px 20px rgba(205, 163, 79, 0.5);
@@ -318,7 +338,7 @@
             font-family: 'Playfair Display', Georgia, serif;
             text-align: center;
             font-size: 2.4rem;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             font-weight: 400;
             position: relative;
             color: #ffffff;
@@ -335,16 +355,17 @@
             opacity: 0.7;
         }
 
+        /* === SLIDER CONTAINER === */
         .slider-container {
             position: relative;
             width: 100%;
-            height: 550px;
+            height: 520px;
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             background-color: var(--card-bg);
             border: 1px solid rgba(205, 163, 79, 0.15);
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .slider-wrapper {
@@ -362,12 +383,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            padding-bottom: 120px;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: zoom-in;
+        }
+
+        .slide:hover img {
+            transform: scale(1.04) translateY(-5px);
         }
 
         .slide-caption {
@@ -375,35 +404,259 @@
             bottom: 20px;
             left: 20px;
             width: calc(100% - 40px);
-            background: rgba(15, 15, 15, 0.8);
+            background: rgba(15, 15, 15, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: #fff;
-            padding: 25px;
+            padding: 20px;
             text-align: left;
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .caption-text {
+            flex: 1;
         }
 
         .slide-caption h3 {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--gold-primary);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             letter-spacing: 1px;
         }
 
         .slide-caption p {
             color: #e0e0e0;
             font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        /* === SISTEMA DE FILTROS E BUSCA === */
+        .search-filter-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(205, 163, 79, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+        }
+
+        .search-box-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(205, 163, 79, 0.3);
+            border-radius: 30px;
+            padding: 12px 20px 12px 45px;
+            color: #fff;
             font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(205, 163, 79, 0.25);
+            background: #000;
+        }
+
+        .filter-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-filter {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(205, 163, 79, 0.2);
+            color: #e0e0e0;
+            padding: 8px 18px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-filter:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            background: rgba(205, 163, 79, 0.05);
+        }
+
+        .btn-filter.active {
+            background-color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            color: #0d0d0d;
+            box-shadow: 0 4px 15px rgba(205, 163, 79, 0.3);
+        }
+
+        /* === GRELHA DE PRODUTOS COMPLETA === */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+            min-height: 200px;
+            transition: all 0.4s ease;
+        }
+
+        .catalog-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(205, 163, 79, 0.12);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease, opacity 0.3s ease, visibility 0.3s ease;
+            position: relative;
+        }
+
+        .catalog-card.hidden {
+            display: none !important;
+        }
+
+        .catalog-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(205, 163, 79, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+        }
+
+        /* MOLDURA DE LUXO PARA AS FOTOS:
+           Garante que fotos de qualquer formato (vertical, quadrado) fiquem simétricas
+           e preservem o visual dos perfumes físicos e a sacola da WR Imports.
+        */
+        .catalog-img-container {
+            width: 100%;
+            height: 280px;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+            cursor: zoom-in;
+            border-bottom: 1px solid rgba(205, 163, 79, 0.15);
+        }
+
+        .catalog-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .catalog-card:hover .catalog-img-container img {
+            transform: scale(1.06);
+        }
+
+        .catalog-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .catalog-info h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .catalog-info p {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .catalog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px;
+        }
+
+        .catalog-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* === BOTÕES ADICIONAR NA GRELHA === */
+        .btn-add-list {
+            background-color: var(--gold-primary);
+            color: #0d0d0d;
+            border: none;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(205, 163, 79, 0.3);
+        }
+
+        .btn-add-list:hover {
+            background-color: #ffffff;
+            color: #0d0d0d;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-add-list.added {
+            background-color: #2e7d32;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-add-list.added:hover {
+            background-color: #d32f2f;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
         }
 
         .dots-container {
             position: absolute;
-            bottom: 45px;
-            right: 45px;
+            top: 30px;
+            right: 30px;
             display: flex;
             gap: 10px;
             z-index: 10;
@@ -415,7 +668,7 @@
             background-color: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .dot.active {
@@ -424,6 +677,295 @@
             box-shadow: 0 0 8px var(--gold-primary);
         }
 
+        /* === MENSAGEM NENHUM PERFUME ENCONTRADO === */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        /* === CONTADOR FLUTUANTE DA LISTA === */
+        .wishlist-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold-primary);
+            color: #0d0d0d;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(205, 163, 79, 0.4);
+            z-index: 990;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0);
+        }
+
+        .wishlist-badge.show {
+            transform: scale(1);
+        }
+
+        .wishlist-badge:hover {
+            background-color: #ffffff;
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #d32f2f;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: 2px solid var(--bg-dark);
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* === MODAL DA LISTA DE DESEJOS === */
+        .wishlist-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 400px;
+            height: 100vh;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 2px solid var(--gold-primary);
+            z-index: 1002;
+            transition: right 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+        }
+
+        .wishlist-modal.open {
+            right: 0;
+        }
+
+        .wishlist-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(205, 163, 79, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .wishlist-modal-header h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--gold-primary);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--gold-primary);
+        }
+
+        .wishlist-items {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+
+        .wishlist-items::-webkit-scrollbar {
+            width: 4px;
+        }
+        .wishlist-items::-webkit-scrollbar-thumb {
+            background-color: var(--gold-primary);
+            border-radius: 4px;
+        }
+
+        .wishlist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .wishlist-item:hover {
+            border-color: rgba(205, 163, 79, 0.3);
+        }
+
+        .wishlist-item-info span {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.05rem;
+            display: block;
+            color: #fff;
+        }
+
+        .btn-remove-item {
+            background: none;
+            border: none;
+            color: #ff5252;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .btn-remove-item:hover {
+            transform: scale(1.2);
+        }
+
+        /* === BOTÕES DE ENVIO NO MODAL === */
+        .wishlist-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-send-whatsapp {
+            background-color: #2e7d32;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 14px;
+            border-radius: 4px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
+            font-size: 0.9rem;
+        }
+
+        .btn-send-whatsapp:hover {
+            background-color: #1b5e20;
+            box-shadow: 0 4px 20px rgba(46, 125, 50, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-copy-list {
+            background-color: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 14px;
+            border-radius: 4px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-copy-list:hover {
+            background-color: rgba(205, 163, 79, 0.15);
+            color: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 995;
+            display: none;
+        }
+
+        .modal-overlay.show {
+            display: block;
+        }
+
+        /* === ESTILOS DO LIGHTBOX (ZOOM TELA CHEIA) === */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(205, 163, 79, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .lightbox.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--gold-primary);
+            transform: scale(1.1);
+        }
+
+        /* === CARDS GRID & FOOTER === */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -441,6 +983,12 @@
             border: 1px solid rgba(205, 163, 79, 0.12);
             cursor: pointer;
             background-color: var(--card-bg);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(205, 163, 79, 0.4);
         }
 
         .card-image-container {
@@ -547,29 +1095,42 @@
 
         @media screen and (max-width: 992px) {
             .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .premium-card { height: 340px; }
         }
         @media screen and (max-width: 768px) {
             .brand-title { font-size: 2.8rem; }
-            .slider-container { height: 450px; }
-            .slide-caption { padding: 20px; bottom: 15px; left: 15px; width: calc(100% - 30px); }
-            .dots-container { bottom: 35px; right: 35px; }
+            .slider-container { height: 460px; }
+            .slide img { padding-bottom: 140px; }
+            .slide-caption { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                padding: 15px; 
+                bottom: 15px; 
+                left: 15px; 
+                width: calc(100% - 30px); 
+                gap: 10px;
+            }
+            .wishlist-modal { width: 100%; right: -100%; }
         }
         @media screen and (max-width: 576px) {
             .cards-grid { grid-template-columns: 1fr; }
+            .catalog-grid { grid-template-columns: 1fr; }
             .premium-card { height: 380px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="sidebar-trigger"></div>
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i> Menu
+    </button>
     
-    <nav class="sidebar">
-        <div class="sidebar-badge">Menu ☰</div>
+    <nav class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose">&times;</button>
         <h3>WR Imports</h3>
-        <a href="#"><i class="fa-solid fa-house"></i> Início</a>
-        <a href="#mostruario"><i class="fa-solid fa-bottle-dropper"></i> Ver Destaques</a>
+        <a href="#" id="linkHome"><i class="fa-solid fa-house"></i> Início</a>
+        <a href="#mostruario" id="linkMostruario"><i class="fa-solid fa-bottle-dropper"></i> Ver Destaques</a>
         <a href="https://instagram.com/wr___importss" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
         <a href="https://wa.me/5511951001655?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20as%20fragrâncias%20do%20catálogo." target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Vendas</a>
     </nav>
@@ -596,72 +1157,38 @@
     </header>
 
    <main class="container" id="mostruario">
-        <h2 class="section-title">Destaques Importados</h2>
         
+        <h2 class="section-title">Grandes Destaques</h2>
         <div class="slider-container" id="perfumeSlider">
             <div class="slider-wrapper" id="sliderWrapper">
                 
                 <div class="slide">
-                    <img src="./imagem/kaue1.webp" alt="La Vie Est Belle">
+                    <img src="./imagem/kaue1.webp" alt="La Vie Est Belle" class="zoomable-img">
                     <div class="slide-caption">
-                        <h3>La Vie Est Belle</h3>
-                        <p>A elegância clássica floral com um toque marcante de baunilha e sofisticação.</p>
+                        <div class="caption-text">
+                            <h3>La Vie Est Belle</h3>
+                            <p>O perfume icônico que celebra a felicidade e a elegância feminina.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <img src="./imagem/kaue2.avif" alt="Jean Paul Gaultier Le Male">
+                    <img src="./imagem/kaue6.avif" alt="Bleu de Chanel" class="zoomable-img">
                     <div class="slide-caption">
-                        <h3>Le Male - Jean Paul Gaultier</h3>
-                        <p>Uma fragrância oriental amadeirada icônica e de forte personalidade masculina.</p>
+                        <div class="caption-text">
+                            <h3>Bleu de Chanel</h3>
+                            <p>Um aroma atemporal e de forte personalidade masculina sofisticada.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <img src="./imagem/kaue3.jpg" alt="Natura Essencial">
+                    <img src="./imagem/kaue4.jpg" alt="Duha Al Wataniah" class="zoomable-img">
                     <div class="slide-caption">
-                        <h3>Natura Essencial</h3>
-                        <p>O poder e a exuberância das madeiras nobres da perfumaria profunda.</p>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <img src="./imagem/kaue4.jpg" alt="Duha Al Wataniah">
-                    <div class="slide-caption">
-                        <h3>Duha - Al Wataniah</h3>
-                        <p>O mistério e o luxo das espionage e notas misteriosas da alta perfumaria árabe.</p>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <img src="./imagem/kaue5.jpg" alt="Linha Elysée O Boticário">
-                    <div class="slide-caption">
-                        <h3>Coleção Elysée</h3>
-                        <p>A riqueza de um Chipre marcante criado com os ingredientes mais nobres do mundo.</p>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <img src="./imagem/kaue6.avif" alt="Bleu de Chanel">
-                    <div class="slide-caption">
-                        <h3>Bleu de Chanel</h3>
-                        <p>Um elogio à liberdade masculina em uma fragrância aromática-amadeirada atemporal.</p>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <img src="./imagem/kaue7.avif" alt="Invictus Parfum">
-                    <div class="slide-caption">
-                        <h3>Invictus - Paco Rabanne</h3>
-                        <p>A essence da vitória em notas marinhas vibrantes e o calor do âmbar.</p>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <img src="./imagem/kaue8.avif" alt="Hugo Boss Bottled">
-                    <div class="slide-caption">
-                        <h3>Boss Bottled - Hugo Boss</h3>
-                        <p>Elegante, focado e contemporâneo, projetado com notas frescas de maçã e canela.</p>
+                        <div class="caption-text">
+                            <h3>Duha - Al Wataniah</h3>
+                            <p>O encanto das Arábias traduzido em notas misteriosas e raras.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -669,8 +1196,178 @@
             <div class="dots-container" id="sliderDots"></div>
         </div>
 
-        <h2 class="section-title">Categorias de Luxo</h2>
 
+        <h2 class="section-title">Nosso Catálogo Completo</h2>
+        
+        <div class="search-filter-section">
+            <div class="search-box-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar perfume por nome, marca ou fragrância..." autocomplete="off">
+            </div>
+
+            <div class="filter-wrapper">
+                <button class="btn-filter active" data-filter="todos">Todos</button>
+                <button class="btn-filter" data-filter="feminino">Femininos</button>
+                <button class="btn-filter" data-filter="masculino">Masculinos</button>
+                <button class="btn-filter" data-filter="arabe">Árabes</button>
+                <button class="btn-filter" data-filter="nacional">Nacionais</button>
+            </div>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid">
+            
+            <div class="catalog-card" data-category="feminino" data-search-term="la vie est belle lancome floral doce">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue1.webp" alt="La Vie Est Belle" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>La Vie Est Belle</h3>
+                        <p>A elegância clássica floral com um toque marcante de baunilha e sofisticação.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Feminino</span>
+                        <button class="btn-add-list" data-name="La Vie Est Belle">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="masculino" data-search-term="le male jean paul gaultier masculino oriental amadeirado">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue2.avif" alt="Le Male" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Le Male - JPG</h3>
+                        <p>Uma fragrância oriental amadeirada icônica e de forte personalidade masculina.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Masculino</span>
+                        <button class="btn-add-list" data-name="Le Male - JPG">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="nacional" data-search-term="natura essencial amadeirado forte">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue3.jpg" alt="Natura Essencial" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Natura Essencial</h3>
+                        <p>O poder e a exuberância das madeiras nobres da perfumaria profunda.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Nacional</span>
+                        <button class="btn-add-list" data-name="Natura Essencial">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="arabe" data-search-term="duha al wataniah misterio especiarias arabe">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue4.jpg" alt="Duha Al Wataniah" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Duha - Al Wataniah</h3>
+                        <p>O mistério e o luxo das notas profundas da alta perfumaria árabe.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Árabe</span>
+                        <button class="btn-add-list" data-name="Duha - Al Wataniah">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="nacional" data-search-term="elysee boticario chipre floral">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue5.jpg" alt="Coleção Elysée" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Coleção Elysée</h3>
+                        <p>A riqueza de um Chipre marcante criado com os ingredientes mais nobres do mundo.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Nacional</span>
+                        <button class="btn-add-list" data-name="Coleção Elysée">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="masculino" data-search-term="bleu de chanel amadeirado fresco sofisticado">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue6.avif" alt="Bleu de Chanel" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Bleu de Chanel</h3>
+                        <p>Um elogio à liberdade masculina em uma fragrância aromática-amadeirada atemporal.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Masculino</span>
+                        <button class="btn-add-list" data-name="Bleu de Chanel">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="masculino" data-search-term="invictus paco rabanne marinho fresco ambar">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue7.avif" alt="Invictus" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Invictus - Paco Rabanne</h3>
+                        <p>A essência da vitória em notas marinhas vibrantes e o calor do âmbar.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Masculino</span>
+                        <button class="btn-add-list" data-name="Invictus - Paco Rabanne">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-card" data-category="masculino" data-search-term="boss bottled hugo boss maca canela elegante">
+                <div class="catalog-img-container">
+                    <img src="./imagem/kaue8.avif" alt="Boss Bottled" class="zoomable-img">
+                </div>
+                <div class="catalog-info">
+                    <div>
+                        <h3>Boss Bottled</h3>
+                        <p>Elegante, focado e contemporâneo, projetado com notas frescas de maçã e canela.</p>
+                    </div>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Masculino</span>
+                        <button class="btn-add-list" data-name="Boss Bottled">
+                            <i class="fa-solid fa-heart"></i> Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-results" id="noResults">
+                <i class="fa-regular fa-face-frown" style="font-size: 2.5rem; margin-bottom: 10px; display: block; color: var(--gold-primary);"></i>
+                Nenhum perfume encontrado com esse nome ou marca.
+            </div>
+
+        </div>
+
+        <h2 class="section-title">Categorias de Luxo</h2>
         <div class="cards-grid">
             
             <div class="premium-card">
@@ -720,6 +1417,35 @@
         </div>
     </main>
 
+    <div class="modal-overlay" id="modalOverlay"></div>
+    
+    <div class="wishlist-badge" id="wishlistBadge">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="badge-count" id="wishlistCount">0</span>
+    </div>
+
+    <div class="wishlist-modal" id="wishlistModal">
+        <div class="wishlist-modal-header">
+            <h3>Lista de Interesse</h3>
+            <button class="close-modal" id="closeModal">&times;</button>
+        </div>
+        <div class="wishlist-items" id="wishlistItems"></div>
+        
+        <div class="wishlist-actions">
+            <a href="#" target="_blank" class="btn-send-whatsapp" id="sendWhatsappBtn">
+                <i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp
+            </a>
+            <button class="btn-copy-list" id="copyListBtn">
+                <i class="fa-regular fa-copy"></i> Copiar Lista para o Instagram
+            </button>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img src="" alt="Zoom Perfume" class="lightbox-img" id="lightboxImg">
+    </div>
+
     <footer>
         <div class="social-medias">
             <a href="https://instagram.com/wr___importss" target="_blank" class="social-link">
@@ -732,55 +1458,6 @@
         <p>&copy; 2026 WR Imports Perfumes. Todos os direitos reservados.</p>
     </footer>
 
-    <script>
-        const sliderContainer = document.getElementById('perfumeSlider');
-        const sliderWrapper = document.getElementById('sliderWrapper');
-        const slides = document.querySelectorAll('.slide');
-        const dotsContainer = document.getElementById('sliderDots');
-
-        let currentIndex = 0;
-        let autoPlayTimer;
-
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => changeToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = document.querySelectorAll('.dot');
-
-        function updateSliderPosition() {
-            sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
-            dots.forEach(d => d.classList.remove('active'));
-            dots[currentIndex].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateSliderPosition();
-        }
-
-        function changeToSlide(index) {
-            currentIndex = index;
-            updateSliderPosition();
-        }
-
-        function startAutoPlay() {
-            autoPlayTimer = setInterval(nextSlide, 3500);
-        }
-
-        function stopAutoPlay() {
-            clearInterval(autoPlayTimer);
-        }
-
-        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
-        sliderContainer.addEventListener('mouseleave', startAutoPlay);
-
-        startAutoPlay();
-    </script>
-
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -792,5 +1469,365 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
+    <script>
+        /* === NAVEGAÇÃO / SIDEBAR SCRIPT COM SUPORTE MOBILE === */
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const linkHome = document.getElementById('linkHome');
+        const linkMostruario = document.getElementById('linkMostruario');
+
+        function openSidebar() {
+            sidebar.classList.add('active');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+        }
+
+        menuToggle.addEventListener('click', openSidebar);
+        sidebarClose.addEventListener('click', closeSidebar);
+
+        linkHome.addEventListener('click', closeSidebar);
+        linkMostruario.addEventListener('click', closeSidebar);
+
+
+        /* === SLIDER DESTAQUES SIMPLES (Topo) === */
+        const sliderContainer = document.getElementById('perfumeSlider');
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('sliderDots');
+
+        let currentSlideIndex = 0;
+        let autoPlayTimer;
+
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentSlideIndex = idx;
+                updateSlider();
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlider() {
+            sliderWrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            dots.forEach(d => d.classList.remove('active'));
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function startAutoPlay() {
+            autoPlayTimer = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                updateSlider();
+            }, 4000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayTimer);
+        }
+
+        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+        sliderContainer.addEventListener('mouseleave', startAutoPlay);
+        startAutoPlay();
+
+
+        /* === MOTOR DE BUSCA AVANÇADO COM AUTO-SUGESTÃO === */
+        const searchInput = document.getElementById('searchInput');
+        const catalogGrid = document.getElementById('catalogGrid');
+        const catalogCards = document.querySelectorAll('.catalog-card');
+        const filterButtons = document.querySelectorAll('.btn-filter');
+        const noResults = document.getElementById('noResults');
+
+        const searchWrapper = document.querySelector('.search-box-wrapper');
+        const suggestionsBox = document.createElement('div');
+
+        suggestionsBox.style.position = 'absolute';
+        suggestionsBox.style.top = '100%';
+        suggestionsBox.style.left = '15px';
+        suggestionsBox.style.width = 'calc(100% - 30px)';
+        suggestionsBox.style.background = '#121212';
+        suggestionsBox.style.border = '1px solid rgba(205, 163, 79, 0.3)';
+        suggestionsBox.style.borderRadius = '8px';
+        suggestionsBox.style.marginTop = '8px';
+        suggestionsBox.style.maxHeight = '220px';
+        suggestionsBox.style.overflowY = 'auto';
+        suggestionsBox.style.zIndex = '999';
+        suggestionsBox.style.display = 'none';
+        suggestionsBox.style.boxShadow = '0 10px 25px rgba(0,0,0,0.8)';
+        searchWrapper.appendChild(suggestionsBox);
+
+        const perfumeDatabase = Array.from(catalogCards).map(card => {
+            return card.querySelector('h3').textContent;
+        });
+
+        let activeFilter = 'todos';
+        let activeQuery = '';
+
+        function normalizeText(text) {
+            return text.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "") 
+                .replace(/[^a-z0-9 ]/g, " ")     
+                .replace(/\s+/g, " ")            
+                .trim();
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            activeQuery = query;
+            
+            if (query.length < 1) {
+                suggestionsBox.style.display = 'none';
+                applyFiltersAndSearch();
+                return;
+            }
+
+            const normalizedQuery = normalizeText(query);
+
+            const filteredPerfumes = perfumeDatabase.filter(perfume => 
+                normalizeText(perfume).includes(normalizedQuery)
+            );
+
+            if (filteredPerfumes.length > 0) {
+                suggestionsBox.innerHTML = '';
+                filteredPerfumes.forEach(perfume => {
+                    const option = document.createElement('div');
+                    option.textContent = perfume;
+                    option.style.padding = '12px 18px';
+                    option.style.cursor = 'pointer';
+                    option.style.borderBottom = '1px solid rgba(255,255,255,0.03)';
+                    option.style.transition = 'all 0.2s';
+                    option.style.fontSize = '0.9rem';
+                    option.style.color = '#e0e0e0';
+
+                    option.addEventListener('mouseenter', () => {
+                        option.style.background = 'rgba(205, 163, 79, 0.15)';
+                        option.style.color = '#cda34f';
+                    });
+                    option.addEventListener('mouseleave', () => {
+                        option.style.background = 'transparent';
+                        option.style.color = '#e0e0e0';
+                    });
+
+                    option.addEventListener('click', () => {
+                        searchInput.value = perfume;
+                        activeQuery = perfume;
+                        suggestionsBox.style.display = 'none';
+                        applyFiltersAndSearch();
+                    });
+
+                    suggestionsBox.appendChild(option);
+                });
+                suggestionsBox.style.display = 'block';
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+
+            applyFiltersAndSearch();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchWrapper.contains(e.target)) {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+
+        function applyFiltersAndSearch() {
+            let visibleCount = 0;
+            const normalizedQuery = normalizeText(activeQuery);
+
+            catalogCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const searchTerm = card.getAttribute('data-search-term') || "";
+                const cardTitle = card.querySelector('h3').textContent;
+
+                const combinedText = normalizeText(searchTerm + " " + cardTitle);
+
+                const matchesFilter = (activeFilter === 'todos' || category === activeFilter);
+                const matchesSearch = combinedText.includes(normalizedQuery);
+
+                if (matchesFilter && matchesSearch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
+                activeFilter = button.getAttribute('data-filter');
+                applyFiltersAndSearch();
+            });
+        });
+
+
+        /* === SISTEMA LIGHTBOX (ZOOM DAS IMAGENS EM TELA CHEIA) === */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const zoomableImages = document.querySelectorAll('.zoomable-img');
+
+        zoomableImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg && e.target !== lightboxClose) {
+                closeLightbox();
+            }
+        });
+
+
+        /* === SISTEMA DE LISTA DE DESEJOS COM COPIA PARA INSTAGRAM === */
+        let wishlist = [];
+
+        const badge = document.getElementById('wishlistBadge');
+        const countSpan = document.getElementById('wishlistCount');
+        const modal = document.getElementById('wishlistModal');
+        const overlay = document.getElementById('modalOverlay');
+        const closeModalBtn = document.getElementById('closeModal');
+        const wishlistItemsContainer = document.getElementById('wishlistItems');
+        const sendWhatsappBtn = document.getElementById('sendWhatsappBtn');
+        const copyListBtn = document.getElementById('copyListBtn');
+        const addButtons = document.querySelectorAll('.btn-add-list');
+
+        addButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.getAttribute('data-name');
+                toggleWishlist(name, button);
+            });
+        });
+
+        function toggleWishlist(name, button) {
+            const index = wishlist.indexOf(name);
+            if (index === -1) {
+                wishlist.push(name);
+                button.classList.add('added');
+                button.innerHTML = '<i class="fa-solid fa-check"></i> Salvo';
+            } else {
+                wishlist.splice(index, 1);
+                button.classList.remove('added');
+                button.innerHTML = '<i class="fa-solid fa-heart"></i> Adicionar';
+            }
+            updateWishlistUI();
+        }
+
+        function updateWishlistUI() {
+            const totalItems = wishlist.length;
+            countSpan.textContent = totalItems;
+
+            if (totalItems > 0) {
+                badge.classList.add('show');
+            } else {
+                badge.classList.remove('show');
+                closeWishlistModal();
+            }
+
+            wishlistItemsContainer.innerHTML = '';
+            wishlist.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('wishlist-item');
+                itemDiv.innerHTML = `
+                    <div class="wishlist-item-info">
+                        <span>${item}</span>
+                    </div>
+                    <button class="btn-remove-item" onclick="removeItem('${item}')">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                wishlistItemsContainer.appendChild(itemDiv);
+            });
+
+            const phone = "5511951001655";
+            let message = "Olá! Acessei o catálogo da WR Imports e gostei dessas fragrâncias:\n\n";
+            wishlist.forEach(item => {
+                message += `- ${item}\n`;
+            });
+            
+            const encodedMessage = encodeURIComponent(message);
+            sendWhatsappBtn.href = `https://wa.me/${phone}?text=${encodedMessage}`;
+        }
+
+        copyListBtn.addEventListener('click', () => {
+            if (wishlist.length === 0) return;
+
+            let copyText = "Olá! Acessei o catálogo da WR Imports e gostei dessas fragrâncias:\n\n";
+            wishlist.forEach(item => {
+                copyText += `- ${item}\n`;
+            });
+
+            navigator.clipboard.writeText(copyText).then(() => {
+                const originalHTML = copyListBtn.innerHTML;
+                copyListBtn.innerHTML = '<i class="fa-solid fa-clipboard-check"></i> Copiado!';
+                copyListBtn.style.backgroundColor = '#cda34f';
+                copyListBtn.style.color = '#0d0d0d';
+
+                setTimeout(() => {
+                    copyListBtn.innerHTML = originalHTML;
+                    copyListBtn.style.backgroundColor = 'transparent';
+                    copyListBtn.style.color = '#cda34f';
+                    
+                    window.open('https://instagram.com/wr___importss', '_blank');
+                }, 1500);
+            }).catch(err => {
+                alert('Erro ao copiar a lista, por favor selecione e copie manualmente.');
+            });
+        });
+
+        window.removeItem = function(name) {
+            const index = wishlist.indexOf(name);
+            if (index !== -1) {
+                wishlist.splice(index, 1);
+                
+                addButtons.forEach(button => {
+                    if(button.getAttribute('data-name') === name) {
+                        button.classList.remove('added');
+                        button.innerHTML = '<i class="fa-solid fa-heart"></i> Adicionar';
+                    }
+                });
+
+                updateWishlistUI();
+            }
+        }
+
+        function openWishlistModal() {
+            modal.classList.add('open');
+            overlay.classList.add('show');
+        }
+
+        function closeWishlistModal() {
+            modal.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+
+        badge.addEventListener('click', openWishlistModal);
+        closeModalBtn.addEventListener('click', closeWishlistModal);
+        overlay.addEventListener('click', closeWishlistModal);
+    </script>
 </body>
 </html>
